@@ -6,6 +6,7 @@ import jongwon.lee.org.aanews.model.Articles;
 
 public interface Listener {
 
-    public void fetch(List<Articles> list, String message) ;
-    public void error(String message);
+    void fetch(List<Articles> list, String message) ;
+
+    void error(String message);
 }

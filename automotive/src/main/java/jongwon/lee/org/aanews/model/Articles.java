@@ -12,7 +12,6 @@ public class Articles {
     private String publishedAt = "";
     private String content = "";
 
-    // Getter and Setter for all
     public Source getSource() {
         return source;
     }
