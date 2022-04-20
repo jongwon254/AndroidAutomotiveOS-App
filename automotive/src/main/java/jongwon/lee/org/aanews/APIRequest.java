@@ -17,7 +17,7 @@ public class APIRequest {
 
     // New Retrofit object with gson
     Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl("https://newsapi.org/v2")
+            .baseUrl("https://newsapi.org/v2/")
             .addConverterFactory(GsonConverterFactory.create())
             .build();
 
@@ -26,31 +26,37 @@ public class APIRequest {
         CallAPI callAPI = retrofit.create(CallAPI.class);
 
         // parameters (German general articles)
-        Call<jongwon.lee.org.aanews.model.Response> call = callAPI.callArticles("de", category, context.getString(R.string.api_key));
+        Call<jongwon.lee.org.aanews.model.Response> call = callAPI.callArticles("gb", category, context.getString(R.string.api_key));
 
         try {
-            call.enqueue(new Callback<jongwon.lee.org.aanews.model.Response>() {
-                @Override
-                public void onResponse(Call<jongwon.lee.org.aanews.model.Response> call, Response<jongwon.lee.org.aanews.model.Response> response) {
 
-                    // response error
-                    if (!response.isSuccessful()) {
-                        Toast.makeText(context, "Articles could not be loaded.", Toast.LENGTH_SHORT).show();
+            // start api request on a separate thread and let the calling function wait for the response
+            Thread thread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        Response<jongwon.lee.org.aanews.model.Response> response = call.execute();
+                        jongwon.lee.org.aanews.model.Response apiResponse = response.body();
+
+                        // response error
+                        if (!response.isSuccessful()) {
+                            Toast.makeText(context, "Articles could not be loaded.", Toast.LENGTH_SHORT).show();
+                        }
+
+                        // successful request
+                        listener.fetch(apiResponse.getArticles(), response.message());
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-
-                    // successful request
-                    listener.fetch(response.body().getArticles(), response.message());
-                }
-
-                @Override
-                public void onFailure(Call<jongwon.lee.org.aanews.model.Response> call, Throwable t) {
-
-                    listener.error("Request failed.");
 
                 }
             });
+            thread.start();
+            thread.join();
+
         }
         catch (Exception e) {
+            listener.error("Request failed.");
             e.printStackTrace();
         }
     }

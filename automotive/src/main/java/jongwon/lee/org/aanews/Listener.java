@@ -4,9 +4,9 @@ import java.util.List;
 
 import jongwon.lee.org.aanews.model.Articles;
 
-public interface Listener {
+public interface Listener<Response> {
 
-    void fetch(List<Articles> list, String message) ;
+    void fetch(List<Articles> list, String message);
 
     void error(String message);
 }
