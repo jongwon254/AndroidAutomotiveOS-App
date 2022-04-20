@@ -22,6 +22,7 @@ import androidx.car.app.versioning.CarAppApiLevels;
 import androidx.lifecycle.DefaultLifecycleObserver;
 import jongwon.lee.org.aanews.model.Articles;
 import jongwon.lee.org.aanews.model.Response;
+import jongwon.lee.org.aanews.model.Source;
 
 import static androidx.car.app.CarToast.LENGTH_LONG;
 
@@ -30,9 +31,30 @@ public final class StartScreen extends Screen implements DefaultLifecycleObserve
 
 
     private static final int MAX_LIST_ITEMS = 100;
-    private List<String> sources = new ArrayList<String>();
-    private List<String> titles = new ArrayList<String>();
+    private List<String> sources = new ArrayList<>();
+    private List<String> titles = new ArrayList<>();
     private ItemList.Builder listBuilder;
+
+    // source objects to pass to PaneScreen (8 row-limit for polestar 2)
+    private Source source1;
+    private Source source2;
+    private Source source3;
+    private Source source4;
+    private Source source5;
+    private Source source6;
+    private Source source7;
+    private Source source8;
+
+    // articles objects to pass to PaneScreen (8 row-limit for polestar 2)
+    private Articles articles1;
+    private Articles articles2;
+    private Articles articles3;
+    private Articles articles4;
+    private Articles articles5;
+    private Articles articles6;
+    private Articles articles7;
+    private Articles articles8;
+
 
     public StartScreen(@NonNull CarContext carContext) {
         super(carContext);
@@ -88,12 +110,23 @@ public final class StartScreen extends Screen implements DefaultLifecycleObserve
 
         listBuilder = new ItemList.Builder();
 
+        /*
+         * add list item and on click -> pane screen
+         * pass article index and article object with response attributes
+         */
+
+        // first article clicked
+        source1 = new Source(sources.get(0));
+        articles1 = new Articles(source1, titles.get(0));
         listBuilder.addItem(
                 new Row.Builder()
-                        .setOnClickListener(
-                                ParkedOnlyOnClickListener.create(() -> onClick("Going to Article")))
                         .setTitle(titles.get(0))
                         .addText(sources.get(0))
+                        .setOnClickListener(() ->
+                                getScreenManager()
+                                        .push(new Article1(
+                                                getCarContext(), articles1)))
+                        .setBrowsable(true)
                         .build());
 
         // List size according to host (polestar 2 = 8 rows)
@@ -105,12 +138,128 @@ public final class StartScreen extends Screen implements DefaultLifecycleObserve
 
             // fill remaining list items with content
             for (int i = 2; i <= listLimit; ++i) {
-                listBuilder.addItem(
-                        new Row.Builder()
-                                .setOnClickListener(() -> onClick("Going to Article"))
-                                .setTitle(titles.get(i-1))
-                                .addText(sources.get(i-1))
-                                .build());
+
+                // when clicked on specific article -> pass index and articles object and go to PaneScreen
+
+                switch (i) {
+
+                    // second article clicked
+                    case 2:
+                        source2 = new Source(sources.get(1));
+                        articles2 = new Articles(source2, titles.get(1));
+
+                        listBuilder.addItem(
+                                new Row.Builder()
+                                        .setTitle(titles.get(1))
+                                        .addText(sources.get(1))
+                                        .setOnClickListener(() ->
+                                                getScreenManager()
+                                                        .push(new Article2(
+                                                                getCarContext(), articles2)))
+                                        .setBrowsable(true)
+                                        .build());
+
+                    // third article clicked
+                    case 3:
+                        source3 = new Source(sources.get(2));
+                        articles3 = new Articles(source2, titles.get(2));
+
+                        listBuilder.addItem(
+                                new Row.Builder()
+                                        .setTitle(titles.get(2))
+                                        .addText(sources.get(2))
+                                        .setOnClickListener(() ->
+                                                getScreenManager()
+                                                        .push(new Article3(
+                                                                getCarContext(), articles3)))
+                                        .setBrowsable(true)
+                                        .build());
+
+                    // fourth article clicked
+                    case 4:
+                        source4 = new Source(sources.get(3));
+                        articles4 = new Articles(source2, titles.get(3));
+
+                        listBuilder.addItem(
+                                new Row.Builder()
+                                        .setTitle(titles.get(3))
+                                        .addText(sources.get(3))
+                                        .setOnClickListener(() ->
+                                                getScreenManager()
+                                                        .push(new Article4(
+                                                                getCarContext(), articles4)))
+                                        .setBrowsable(true)
+                                        .build());
+
+                    // fifth article clicked
+                    case 5:
+                        source5 = new Source(sources.get(4));
+                        articles5 = new Articles(source2, titles.get(4));
+
+                        listBuilder.addItem(
+                                new Row.Builder()
+                                        .setTitle(titles.get(4))
+                                        .addText(sources.get(4))
+                                        .setOnClickListener(() ->
+                                                getScreenManager()
+                                                        .push(new Article5(
+                                                                getCarContext(), articles5)))
+                                        .setBrowsable(true)
+                                        .build());
+
+                    // sixth article clicked
+                    case 6:
+                        source6 = new Source(sources.get(5));
+                        articles6 = new Articles(source2, titles.get(5));
+
+                        listBuilder.addItem(
+                                new Row.Builder()
+                                        .setTitle(titles.get(5))
+                                        .addText(sources.get(5))
+                                        .setOnClickListener(() ->
+                                                getScreenManager()
+                                                        .push(new Article6(
+                                                                getCarContext(), articles6)))
+                                        .setBrowsable(true)
+                                        .build());
+
+                    // seventh article clicked
+                    case 7:
+                        source7 = new Source(sources.get(6));
+                        articles7 = new Articles(source2, titles.get(6));
+
+                        listBuilder.addItem(
+                                new Row.Builder()
+                                        .setTitle(titles.get(6))
+                                        .addText(sources.get(6))
+                                        .setOnClickListener(() ->
+                                                getScreenManager()
+                                                        .push(new Article7(
+                                                                getCarContext(), articles7)))
+                                        .setBrowsable(true)
+                                        .build());
+
+                    // eigth article clicked
+                    case 8:
+                        source8 = new Source(sources.get(7));
+                        articles8 = new Articles(source2, titles.get(7));
+
+                        listBuilder.addItem(
+                                new Row.Builder()
+                                        .setTitle(titles.get(7))
+                                        .addText(sources.get(7))
+                                        .setOnClickListener(() ->
+                                                getScreenManager()
+                                                        .push(new Article8(
+                                                                getCarContext(), articles8)))
+                                        .setBrowsable(true)
+                                        .build());
+
+                    default:
+                        // constrained to 8 articles per list / support for other hosts coming soon
+                        Toast.makeText(getCarContext(), "Maximum list size reached.", Toast.LENGTH_SHORT).show();
+                }
+
             }
         }
 
@@ -126,7 +275,7 @@ public final class StartScreen extends Screen implements DefaultLifecycleObserve
                                                 .setOnClickListener(
                                                         () -> CarToast.makeText(
                                                                 getCarContext(),
-                                                                "Clicked Filter",
+                                                                "Clicked Categories",
                                                                 LENGTH_LONG)
                                                                 .show())
 

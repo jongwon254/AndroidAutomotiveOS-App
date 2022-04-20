@@ -3,14 +3,19 @@ package jongwon.lee.org.aanews.model;
 public class Articles {
 
     // JSON response from NewsAPI
-    private Source source =  null;
+    private Source source;
     private String author = "";
-    private String title = "";
+    private String title;
     private String description = "";
     private String url = "";
     private String urlToImage = "";
     private String publishedAt = "";
     private String content = "";
+
+    public Articles(Source source, String title) {
+        this.source = source;
+        this.title = title;
+    }
 
     public Source getSource() {
         return source;
