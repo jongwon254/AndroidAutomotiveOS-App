@@ -150,9 +150,9 @@ public class Article5 extends Screen implements DefaultLifecycleObserver {
         articles.setContent(articles.getContent().replaceAll(pattern, ""));
 
         // split long strings as host allows only 2 lines per title/text
-        String substring1 = "";
-        String substring2 = "";
-        String substring3 = "";
+        String substring1;
+        String substring2;
+        String substring3;
 
         if(articles.getContent().length() > 150) {
             substring1 = articles.getContent().replace("\n", " ").replace("\r", " ").replace("&quot;", "").substring(0, 75);
@@ -168,10 +168,13 @@ public class Article5 extends Screen implements DefaultLifecycleObserver {
 
             substring1 = substring1 + "...";
             substring2 = substring2 + "...";
+            substring3 = " ";
         } else {
             substring1 = articles.getContent().replace("\n", " ").replace("\r", " ").replace("&quot;", "");
 
             substring1 = substring1 + "...";
+            substring2 = " ";
+            substring3 = " ";
         }
 
         switch (index) {

@@ -29,6 +29,33 @@ public final class Categories extends Screen {
     public Template onGetTemplate() {
         ListTemplate.Builder templateBuilder = new ListTemplate.Builder();
 
+        // save last category selected from user
+        int selected = 0;
+        switch(StartScreen.category) {
+            case "general":
+                selected = 0;
+                break;
+            case "business":
+                selected = 1;
+                break;
+            case "entertainment":
+                selected = 2;
+                break;
+            case "health":
+                selected = 3;
+                break;
+            case "science":
+                selected = 4;
+                break;
+            case "sports":
+                selected = 5;
+                break;
+            case "technology":
+                selected = 6;
+                break;
+
+        }
+
         // radio list with 7 categories: general, business, entertainment, health, science, sports, technology with image
         ItemList radioList =
                 new ItemList.Builder()
@@ -44,6 +71,7 @@ public final class Categories extends Screen {
                 .addItem(new Row.Builder().setImage(new CarIcon.Builder(IconCompat.createWithResource(getCarContext(), R.drawable.sports_icon)).build(),Row.IMAGE_TYPE_ICON).setTitle("Sports").build())
                 .addItem(new Row.Builder().setImage(new CarIcon.Builder(IconCompat.createWithResource(getCarContext(), R.drawable.technology_icon)).build(),Row.IMAGE_TYPE_ICON).setTitle("Technology").build())
                 .setOnSelectedListener(this::onSelected)
+                .setSelectedIndex(selected)
                 .build();
 
         templateBuilder.addSectionedList(
