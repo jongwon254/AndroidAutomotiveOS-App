@@ -31,17 +31,19 @@ public final class StartScreen extends Screen implements DefaultLifecycleObserve
 
     private static final int MAX_LIST_ITEMS = 100;
     private ItemList.Builder listBuilder;
-    private String category;
 
-    // Lists for api response
-    private List<String> sources = new ArrayList<>();
-    private List<String> authors = new ArrayList<>();
-    private List<String> titles = new ArrayList<>();
-    private List<String> descriptions = new ArrayList<>();
-    private List<String> urls = new ArrayList<>();
-    private List<String> urlToImages = new ArrayList<>();
-    private List<String> publishedAts = new ArrayList<>();
-    private List<String> contents = new ArrayList<>();
+    // news category
+    public static String category = "general";
+
+    // lists for api response
+    public static List<String> sources = new ArrayList<>();
+    public static List<String> authors = new ArrayList<>();
+    public static List<String> titles = new ArrayList<>();
+    public static List<String> descriptions = new ArrayList<>();
+    public static List<String> urls = new ArrayList<>();
+    public static List<String> urlToImages = new ArrayList<>();
+    public static List<String> publishedAts = new ArrayList<>();
+    public static List<String> contents = new ArrayList<>();
 
     // source objects to pass to PaneScreen (8 row-limit for polestar 2)
     private Source source1;
@@ -78,11 +80,10 @@ public final class StartScreen extends Screen implements DefaultLifecycleObserve
     public Template onGetTemplate() {
 
 
-        // New request object
+        // new request object
         APIRequest request = new APIRequest(getCarContext());
 
         // requests articles from API
-        category = "general";
         request.getArticles(listener, category);
 
         // show screen with list items
@@ -110,15 +111,6 @@ public final class StartScreen extends Screen implements DefaultLifecycleObserve
                 contents.add(article.getContent());
 
             }
-
-            System.out.println(sources);
-            System.out.println(authors);
-            System.out.println(titles);
-            System.out.println(descriptions);
-            System.out.println(urls);
-            System.out.println(urlToImages);
-            System.out.println(publishedAts);
-            System.out.println(contents);
         }
         @Override
         public void error(String message) {
@@ -130,9 +122,6 @@ public final class StartScreen extends Screen implements DefaultLifecycleObserve
 
     // creates ListTemplate with articles
     private Template showTemplate() {
-        
-        System.out.println(titles);
-        System.out.println(sources);
 
         listBuilder = new ItemList.Builder();
 
@@ -207,6 +196,7 @@ public final class StartScreen extends Screen implements DefaultLifecycleObserve
                                                                 getCarContext(), articles2)))
                                         .setBrowsable(true)
                                         .build());
+                        break;
 
                     // third article clicked
                     case 3:
@@ -234,7 +224,7 @@ public final class StartScreen extends Screen implements DefaultLifecycleObserve
                                                                 getCarContext(), articles3)))
                                         .setBrowsable(true)
                                         .build());
-
+                        break;
                     // fourth article clicked
                     case 4:
                         source4 = new Source(sources.get(3), category.substring(0, 1).toUpperCase() + category.substring(1));
@@ -261,7 +251,7 @@ public final class StartScreen extends Screen implements DefaultLifecycleObserve
                                                                 getCarContext(), articles4)))
                                         .setBrowsable(true)
                                         .build());
-
+                        break;
                     // fifth article clicked
                     case 5:
                         source5 = new Source(sources.get(4), category.substring(0, 1).toUpperCase() + category.substring(1));
@@ -288,7 +278,7 @@ public final class StartScreen extends Screen implements DefaultLifecycleObserve
                                                                 getCarContext(), articles5)))
                                         .setBrowsable(true)
                                         .build());
-
+                        break;
                     // sixth article clicked
                     case 6:
                         source6 = new Source(sources.get(5), category.substring(0, 1).toUpperCase() + category.substring(1));
@@ -315,7 +305,7 @@ public final class StartScreen extends Screen implements DefaultLifecycleObserve
                                                                 getCarContext(), articles6)))
                                         .setBrowsable(true)
                                         .build());
-
+                        break;
                     // seventh article clicked
                     case 7:
                         source7 = new Source(sources.get(6), category.substring(0, 1).toUpperCase() + category.substring(1));
@@ -342,7 +332,7 @@ public final class StartScreen extends Screen implements DefaultLifecycleObserve
                                                                 getCarContext(), articles7)))
                                         .setBrowsable(true)
                                         .build());
-
+                        break;
                     // eigth article clicked
                     case 8:
                         source8 = new Source(sources.get(7), category.substring(0, 1).toUpperCase() + category.substring(1));
@@ -369,10 +359,11 @@ public final class StartScreen extends Screen implements DefaultLifecycleObserve
                                                                 getCarContext(), articles8)))
                                         .setBrowsable(true)
                                         .build());
-
+                        break;
                     default:
                         // constrained to 8 articles per list / support for other hosts coming soon
                         Toast.makeText(getCarContext(), "Maximum list size reached.", Toast.LENGTH_SHORT).show();
+                        break;
                 }
 
             }
@@ -387,12 +378,9 @@ public final class StartScreen extends Screen implements DefaultLifecycleObserve
                                 .addAction(
                                         new Action.Builder()
                                                 .setTitle("Categories")
-                                                .setOnClickListener(
-                                                        () -> CarToast.makeText(
-                                                                getCarContext(),
-                                                                "Clicked Categories",
-                                                                LENGTH_LONG)
-                                                                .show())
+                                                .setOnClickListener(() ->
+                                                        getScreenManager()
+                                                                .push(new Categories(getCarContext())))
 
                                                 .build())
                                 .build())

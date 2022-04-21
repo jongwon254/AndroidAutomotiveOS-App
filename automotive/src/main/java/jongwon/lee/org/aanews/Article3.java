@@ -148,7 +148,6 @@ public class Article3 extends Screen implements DefaultLifecycleObserver {
         // delete char count at the end of description string
         String pattern = "..\\[\\+\\d+.chars\\]";
         articles.setContent(articles.getContent().replaceAll(pattern, ""));
-        System.out.println(articles.getContent());
 
         // split long strings as host allows only 2 lines per title/text
         String substring1 = "";
@@ -156,21 +155,21 @@ public class Article3 extends Screen implements DefaultLifecycleObserver {
         String substring3 = "";
 
         if(articles.getContent().length() > 150) {
-            substring1 = articles.getContent().replace("\n", "").replace("\r", "").replace("&quot;", "").substring(0, 75);
-            substring2 = articles.getContent().replace("\n", "").replace("\r", "").replace("&quot;", "").substring(75, 150);
-            substring3 = articles.getContent().replace("\n", "").replace("\r", "").replace("&quot;", "").substring(150);
+            substring1 = articles.getContent().replace("\n", " ").replace("\r", " ").replace("&quot;", "").substring(0, 75);
+            substring2 = articles.getContent().replace("\n", " ").replace("\r", " ").replace("&quot;", "").substring(75, 150);
+            substring3 = articles.getContent().replace("\n", " ").replace("\r", " ").replace("&quot;", "").substring(150);
 
             substring1 = substring1 + "...";
             substring2 = substring2 + "...";
             substring3 = substring3 + "...";
         } else if(articles.getContent().length() > 75 && articles.getContent().length() <= 150) {
-            substring1 = articles.getContent().replace("\n", "").replace("\r", "").replace("&quot;", "").substring(0, 75);
-            substring2 = articles.getContent().replace("\n", "").replace("\r", "").replace("&quot;", "").substring(75);
+            substring1 = articles.getContent().replace("\n", " ").replace("\r", " ").replace("&quot;", "").substring(0, 75);
+            substring2 = articles.getContent().replace("\n", " ").replace("\r", " ").replace("&quot;", "").substring(75);
 
             substring1 = substring1 + "...";
             substring2 = substring2 + "...";
         } else {
-            substring1 = articles.getContent().replace("\n", "").replace("\r", "").replace("&quot;", "");
+            substring1 = articles.getContent().replace("\n", " ").replace("\r", " ").replace("&quot;", "");
 
             substring1 = substring1 + "...";
         }
