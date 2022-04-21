@@ -28,11 +28,18 @@ import static androidx.car.app.CarToast.LENGTH_LONG;
 
 public final class StartScreen extends Screen implements DefaultLifecycleObserver {
 
-
-
     private static final int MAX_LIST_ITEMS = 100;
+
+    // Lists for api response
     private List<String> sources = new ArrayList<>();
+    private List<String> authors = new ArrayList<>();
     private List<String> titles = new ArrayList<>();
+    private List<String> descriptions = new ArrayList<>();
+    private List<String> urls = new ArrayList<>();
+    private List<String> urlToImages = new ArrayList<>();
+    private List<String> publishedAts = new ArrayList<>();
+    private List<String> contents = new ArrayList<>();
+
     private ItemList.Builder listBuilder;
 
     // source objects to pass to PaneScreen (8 row-limit for polestar 2)
@@ -91,8 +98,24 @@ public final class StartScreen extends Screen implements DefaultLifecycleObserve
             // extract information from articles and pass to list items
             for (Articles article : list) {
                 sources.add(article.getSource().getName());
+                authors.add(article.getAuthor());
                 titles.add(article.getTitle());
+                descriptions.add(article.getDescription());
+                urls.add(article.getUrl());
+                urlToImages.add(article.getUrlToImage());
+                publishedAts.add(article.getPublishedAt());
+                contents.add(article.getContent());
+
             }
+
+            System.out.println(sources);
+            System.out.println(authors);
+            System.out.println(titles);
+            System.out.println(descriptions);
+            System.out.println(urls);
+            System.out.println(urlToImages);
+            System.out.println(publishedAts);
+            System.out.println(contents);
         }
         @Override
         public void error(String message) {
@@ -117,7 +140,19 @@ public final class StartScreen extends Screen implements DefaultLifecycleObserve
 
         // first article clicked
         source1 = new Source(sources.get(0));
-        articles1 = new Articles(source1, titles.get(0));
+        articles1 = new Articles(source1, authors.get(0), titles.get(0), descriptions.get(0), urls.get(0), urlToImages.get(0), publishedAts.get(0), contents.get(0));
+
+        // check for null title and source
+        if(titles.get(0) == null) {
+            titles.set(0, titles.get(0) + "");
+            titles.set(0, "N/A");
+        }
+
+        if(sources.get(0) == null) {
+            sources.set(0, sources.get(0) + "");
+            sources.set(0, "N/A");
+        }
+
         listBuilder.addItem(
                 new Row.Builder()
                         .setTitle(titles.get(0))
@@ -146,7 +181,18 @@ public final class StartScreen extends Screen implements DefaultLifecycleObserve
                     // second article clicked
                     case 2:
                         source2 = new Source(sources.get(1));
-                        articles2 = new Articles(source2, titles.get(1));
+                        articles2 = new Articles(source2, authors.get(1), titles.get(1), descriptions.get(1), urls.get(1), urlToImages.get(1), publishedAts.get(1), contents.get(1));
+
+                        // check for null title and source
+                        if(titles.get(1) == null) {
+                            titles.set(1, titles.get(1) + "");
+                            titles.set(1, "N/A");
+                        }
+
+                        if(sources.get(1) == null) {
+                            sources.set(1, sources.get(1) + "");
+                            sources.set(1, "N/A");
+                        }
 
                         listBuilder.addItem(
                                 new Row.Builder()
@@ -162,7 +208,18 @@ public final class StartScreen extends Screen implements DefaultLifecycleObserve
                     // third article clicked
                     case 3:
                         source3 = new Source(sources.get(2));
-                        articles3 = new Articles(source2, titles.get(2));
+                        articles3 = new Articles(source3, authors.get(2), titles.get(2), descriptions.get(2), urls.get(2), urlToImages.get(2), publishedAts.get(2), contents.get(2));
+
+                        // check for null title and source
+                        if(titles.get(2) == null) {
+                            titles.set(2, titles.get(2) + "");
+                            titles.set(2, "N/A");
+                        }
+
+                        if(sources.get(2) == null) {
+                            sources.set(2, sources.get(2) + "");
+                            sources.set(2, "N/A");
+                        }
 
                         listBuilder.addItem(
                                 new Row.Builder()
@@ -178,7 +235,18 @@ public final class StartScreen extends Screen implements DefaultLifecycleObserve
                     // fourth article clicked
                     case 4:
                         source4 = new Source(sources.get(3));
-                        articles4 = new Articles(source2, titles.get(3));
+                        articles4 = new Articles(source4, authors.get(3), titles.get(3), descriptions.get(3), urls.get(3), urlToImages.get(3), publishedAts.get(3), contents.get(3));
+
+                        // check for null title and source
+                        if(titles.get(3) == null) {
+                            titles.set(3, titles.get(3) + "");
+                            titles.set(3, "N/A");
+                        }
+
+                        if(sources.get(3) == null) {
+                            sources.set(3, sources.get(3) + "");
+                            sources.set(3, "N/A");
+                        }
 
                         listBuilder.addItem(
                                 new Row.Builder()
@@ -194,7 +262,18 @@ public final class StartScreen extends Screen implements DefaultLifecycleObserve
                     // fifth article clicked
                     case 5:
                         source5 = new Source(sources.get(4));
-                        articles5 = new Articles(source2, titles.get(4));
+                        articles5 = new Articles(source5, authors.get(4), titles.get(4), descriptions.get(4), urls.get(4), urlToImages.get(4), publishedAts.get(4), contents.get(4));
+
+                        // check for null title and source
+                        if(titles.get(4) == null) {
+                            titles.set(4, titles.get(4) + "");
+                            titles.set(4, "N/A");
+                        }
+
+                        if(sources.get(4) == null) {
+                            sources.set(4, sources.get(4) + "");
+                            sources.set(4, "N/A");
+                        }
 
                         listBuilder.addItem(
                                 new Row.Builder()
@@ -210,7 +289,18 @@ public final class StartScreen extends Screen implements DefaultLifecycleObserve
                     // sixth article clicked
                     case 6:
                         source6 = new Source(sources.get(5));
-                        articles6 = new Articles(source2, titles.get(5));
+                        articles6 = new Articles(source6, authors.get(5), titles.get(5), descriptions.get(5), urls.get(5), urlToImages.get(5), publishedAts.get(5), contents.get(5));
+
+                        // check for null title and source
+                        if(titles.get(5) == null) {
+                            titles.set(5, titles.get(5) + "");
+                            titles.set(5, "N/A");
+                        }
+
+                        if(sources.get(5) == null) {
+                            sources.set(5, sources.get(5) + "");
+                            sources.set(5, "N/A");
+                        }
 
                         listBuilder.addItem(
                                 new Row.Builder()
@@ -226,7 +316,18 @@ public final class StartScreen extends Screen implements DefaultLifecycleObserve
                     // seventh article clicked
                     case 7:
                         source7 = new Source(sources.get(6));
-                        articles7 = new Articles(source2, titles.get(6));
+                        articles7 = new Articles(source7, authors.get(6), titles.get(6), descriptions.get(6), urls.get(6), urlToImages.get(6), publishedAts.get(6), contents.get(6));
+
+                        // check for null title and source
+                        if(titles.get(6) == null) {
+                            titles.set(6, titles.get(6) + "");
+                            titles.set(6, "N/A");
+                        }
+
+                        if(sources.get(6) == null) {
+                            sources.set(6, sources.get(6) + "");
+                            sources.set(6, "N/A");
+                        }
 
                         listBuilder.addItem(
                                 new Row.Builder()
@@ -242,7 +343,18 @@ public final class StartScreen extends Screen implements DefaultLifecycleObserve
                     // eigth article clicked
                     case 8:
                         source8 = new Source(sources.get(7));
-                        articles8 = new Articles(source2, titles.get(7));
+                        articles8 = new Articles(source8, authors.get(7), titles.get(7), descriptions.get(7), urls.get(7), urlToImages.get(7), publishedAts.get(7), contents.get(7));
+
+                        // check for null title and source
+                        if(titles.get(7) == null) {
+                            titles.set(7, titles.get(7) + "");
+                            titles.set(7, "N/A");
+                        }
+
+                        if(sources.get(7) == null) {
+                            sources.set(7, sources.get(7) + "");
+                            sources.set(7, "N/A");
+                        }
 
                         listBuilder.addItem(
                                 new Row.Builder()

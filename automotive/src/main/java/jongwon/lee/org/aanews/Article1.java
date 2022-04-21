@@ -39,7 +39,7 @@ public class Article1 extends Screen implements DefaultLifecycleObserver {
     // object from ListScreen
     Articles articles;
 
-    // constructor with index for article number
+    // constructor with Articles object from ListScreen
     public Article1(@NonNull CarContext carContext, Articles articles) {
         super(carContext);
         this.articles = articles;
@@ -49,13 +49,55 @@ public class Article1 extends Screen implements DefaultLifecycleObserver {
     // format image and icon
     public void onCreate(@NonNull LifecycleOwner owner) {
 
+        // check for null attributes
+        if(articles.getSource().getName() == null) {
+            articles.getSource().setName(articles.getSource().getName() + "");
+            articles.getSource().setName("N/A");
+        }
+
+        if(articles.getAuthor() == null) {
+            articles.setAuthor(articles.getAuthor() + "");
+            articles.setAuthor("N/A");
+        }
+
+        if(articles.getTitle() == null) {
+            articles.setTitle(articles.getTitle() + "");
+            articles.setTitle("N/A");
+        }
+
+        if(articles.getDescription() == null) {
+            articles.setDescription(articles.getDescription() + "");
+            articles.setDescription("N/A");
+        }
+
+        if(articles.getUrl() == null) {
+            articles.setUrl(articles.getUrl() + "");
+            articles.setUrl("N/A");
+        }
+
+        if(articles.getUrlToImage() == null) {
+            // random news splash image
+            articles.setUrlToImage(articles.getUrlToImage() + "");
+            articles.setUrlToImage("https://source.unsplash.com/1600x900/?news");
+        }
+
+        if(articles.getPublishedAt() == null) {
+            articles.setPublishedAt(articles.getPublishedAt() + "");
+            articles.setPublishedAt("N/A");
+        }
+
+        if(articles.getContent() == null) {
+            articles.setContent(articles.getContent() + "");
+            articles.setContent("N/A");
+        }
+
         // Get news image from api response in async thread
         try {
             Thread thread = new Thread(new Runnable() {
                 @Override
                 public void run() {
                     try {
-                        URL url = new URL("https://assets-prd.ignimgs.com/2022/04/20/pjimage-1650475858233.jpg?width=1280");
+                        URL url = new URL(articles.getUrlToImage());
                         Bitmap bitmapImage = BitmapFactory.decodeStream(url.openConnection().getInputStream());
                         newsImage = IconCompat.createWithBitmap(bitmapImage);
                         source_icon = IconCompat.createWithResource(getCarContext(), R.drawable.bbc_icon);
@@ -72,43 +114,56 @@ public class Article1 extends Screen implements DefaultLifecycleObserver {
         }
     }
 
-    // create rows for article content based on loop index (split in 3 parts)
+    // create rows for article content based on loop index (split in 4 parts)
     private Row createRow(int index) {
+        String substring1 = articles.getDescription().replace("\n", "").replace("\r", "").substring(0, 70);
+        String substring2 = articles.getDescription().replace("\n", "").replace("\r", "").substring(70);
+
+        String url1 = articles.getUrl().substring(0, 75);
+        String url2 = articles.getUrl().substring(75);
+
         switch (index) {
             case 0:
                 // title, author, source, date, source icon
                 return new Row.Builder()
                         .setTitle(articles.getTitle())
-                        .addText("AUTHOR")
-                        .addText(articles.getSource().getName() + " | " + "PUBLISHED AT")
+                        .addText(articles.getAuthor())
+                        .addText(articles.getSource().getName() + " | " + articles.getPublishedAt())
                         .setImage(new CarIcon.Builder(source_icon).build())
                         .build();
 
             case 1:
                 // description/content
+                    return new Row.Builder()
+                            .setTitle(substring1)
+                            .addText(substring2)
+                            .build();
+
+            case 2:
+                // url part 1
                 return new Row.Builder()
-                        .setTitle(" ")
-                        .addText("DESCRIPTION")
+                        .setTitle("Full Article:")
+                        .addText(url1 + "...")
                         .build();
 
             default:
-                // url
+                // url part 2
                 return new Row.Builder()
-                        .setTitle("Full Article: URL")
+                        .setTitle("..." + url2)
                         .build();
 
         }
     }
 
-    // create Pane with 3 rows and return PaneTemplate (list limit fixed with 3 rows)
+    // create Pane with 4 rows and return PaneTemplate (list limit fixed with 4 rows)
     @SuppressLint("UnsafeOptInUsageError")
     @NonNull
     @Override
     public Template onGetTemplate() {
 
-        // create 3 rows with content
+        // create 4 rows with content
         Pane.Builder paneBuilder = new Pane.Builder();
-        for(int i = 0; i < 3; i++) {
+        for(int i = 0; i < 4; i++) {
             paneBuilder.addRow(createRow(i));
         }
 
