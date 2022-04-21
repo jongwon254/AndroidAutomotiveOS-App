@@ -4,13 +4,13 @@ public class Articles {
 
     // JSON response from NewsAPI
     private Source source;
-    private String author = "";
+    private String author;
     private String title;
-    private String description = "";
-    private String url = "";
-    private String urlToImage = "";
-    private String publishedAt = "";
-    private String content = "";
+    private String description;
+    private String url;
+    private String urlToImage;
+    private String publishedAt;
+    private String content;
 
     public Articles(Source source, String author, String title, String description, String url, String urlToImage, String publishedAt, String content) {
         this.source = source;
@@ -21,6 +21,20 @@ public class Articles {
         this.urlToImage = urlToImage;
         this.publishedAt = publishedAt;
         this.content = content;
+    }
+
+    public String toString() {
+        StringBuffer buffer = new StringBuffer();
+        buffer.append("source: " + this.source.getName() + "\n");
+        buffer.append("author: " + this.author + "\n");
+        buffer.append("title: " + this.title + "\n");
+        buffer.append("description: " + this.description + "\n");
+        buffer.append("url: " + this.url + "\n");
+        buffer.append("urlToImage: " + this.urlToImage + "\n");
+        buffer.append("publishedAt: " + this.publishedAt + "\n");
+        buffer.append("content: " + this.content + "\n");
+
+        return buffer.toString();
     }
 
     public Source getSource() {

@@ -91,6 +91,8 @@ public class Article4 extends Screen implements DefaultLifecycleObserver {
             articles.setContent("N/A");
         }
 
+
+
         // Get news image from api response in async thread
         try {
             Thread thread = new Thread(new Runnable() {
@@ -112,7 +114,9 @@ public class Article4 extends Screen implements DefaultLifecycleObserver {
         } catch(InterruptedException e) {
             e.printStackTrace();
         }
+
     }
+
 
     // create rows for article content based on loop index (split in 3 parts)
     private Row createRow(int index) {

@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
 import java.net.URL;
+import java.util.Locale;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -97,10 +98,37 @@ public class Article1 extends Screen implements DefaultLifecycleObserver {
                 @Override
                 public void run() {
                     try {
+
+                        // large news image on the right
                         URL url = new URL(articles.getUrlToImage());
                         Bitmap bitmapImage = BitmapFactory.decodeStream(url.openConnection().getInputStream());
                         newsImage = IconCompat.createWithBitmap(bitmapImage);
-                        source_icon = IconCompat.createWithResource(getCarContext(), R.drawable.bbc_icon);
+
+                        // small source image on the left
+                        String source = articles.getSource().getName().toLowerCase();
+
+                        if(source.contains("bbc")) {
+                            source_icon = IconCompat.createWithResource(getCarContext(), R.drawable.bbc_icon);
+                        } else if(source.contains("independent")) {
+                            source_icon = IconCompat.createWithResource(getCarContext(), R.drawable.independent_icon);
+                        } else if(source.contains("sky")) {
+                            source_icon = IconCompat.createWithResource(getCarContext(), R.drawable.sky_icon);
+                        } else if(source.contains("guardian")) {
+                            source_icon = IconCompat.createWithResource(getCarContext(), R.drawable.guardian_icon);
+                        } else if(source.contains("telegraph")) {
+                            source_icon = IconCompat.createWithResource(getCarContext(), R.drawable.telegraph_icon);
+                        } else if(source.contains("daily")) {
+                            source_icon = IconCompat.createWithResource(getCarContext(), R.drawable.dailymail_icon);
+                        } else if(source.contains("verge")) {
+                            source_icon = IconCompat.createWithResource(getCarContext(), R.drawable.verge_icon);
+                        } else if(source.contains("the times")) {
+                            source_icon = IconCompat.createWithResource(getCarContext(), R.drawable.times_icon);
+                        } else if(source.contains("financial times")) {
+                            source_icon = IconCompat.createWithResource(getCarContext(), R.drawable.financialtimes_icon);
+                        } else {
+                            source_icon = IconCompat.createWithResource(getCarContext(), R.drawable.news_icon);
+                        }
+
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -116,11 +144,36 @@ public class Article1 extends Screen implements DefaultLifecycleObserver {
 
     // create rows for article content based on loop index (split in 4 parts)
     private Row createRow(int index) {
-        String substring1 = articles.getDescription().replace("\n", "").replace("\r", "").substring(0, 70);
-        String substring2 = articles.getDescription().replace("\n", "").replace("\r", "").substring(70);
 
-        String url1 = articles.getUrl().substring(0, 75);
-        String url2 = articles.getUrl().substring(75);
+        // delete char count at the end of description string
+        String pattern = "..\\[\\+\\d+.chars\\]";
+        articles.setContent(articles.getContent().replaceAll(pattern, ""));
+        System.out.println(articles.getContent());
+
+        // split long strings as host allows only 2 lines per title/text
+        String substring1 = "";
+        String substring2 = "";
+        String substring3 = "";
+
+        if(articles.getContent().length() > 150) {
+            substring1 = articles.getContent().replace("\n", "").replace("\r", "").replace("&quot;", "").substring(0, 75);
+            substring2 = articles.getContent().replace("\n", "").replace("\r", "").replace("&quot;", "").substring(75, 150);
+            substring3 = articles.getContent().replace("\n", "").replace("\r", "").replace("&quot;", "").substring(150);
+
+            substring1 = substring1 + "...";
+            substring2 = substring2 + "...";
+            substring3 = substring3 + "...";
+        } else if(articles.getContent().length() > 75 && articles.getContent().length() <= 150) {
+            substring1 = articles.getContent().replace("\n", "").replace("\r", "").replace("&quot;", "").substring(0, 75);
+            substring2 = articles.getContent().replace("\n", "").replace("\r", "").replace("&quot;", "").substring(75);
+
+            substring1 = substring1 + "...";
+            substring2 = substring2 + "...";
+        } else {
+            substring1 = articles.getContent().replace("\n", "").replace("\r", "").replace("&quot;", "");
+
+            substring1 = substring1 + "...";
+        }
 
         switch (index) {
             case 0:
@@ -128,28 +181,28 @@ public class Article1 extends Screen implements DefaultLifecycleObserver {
                 return new Row.Builder()
                         .setTitle(articles.getTitle())
                         .addText(articles.getAuthor())
-                        .addText(articles.getSource().getName() + " | " + articles.getPublishedAt())
+                        .addText(articles.getSource().getName() + " | " + articles.getPublishedAt().replace("T", ", ").replace("Z", ""))
                         .setImage(new CarIcon.Builder(source_icon).build())
                         .build();
 
             case 1:
                 // description/content
-                    return new Row.Builder()
-                            .setTitle(substring1)
-                            .addText(substring2)
-                            .build();
+                return new Row.Builder()
+                        .setTitle(substring1)
+                        .addText(substring2)
+                        .build();
 
             case 2:
                 // url part 1
                 return new Row.Builder()
-                        .setTitle("Full Article:")
-                        .addText(url1 + "...")
+                        .setTitle(substring3)
                         .build();
 
             default:
                 // url part 2
                 return new Row.Builder()
-                        .setTitle("..." + url2)
+                        .setTitle("Full Article:")
+                        .addText(articles.getUrl())
                         .build();
 
         }
@@ -177,7 +230,7 @@ public class Article1 extends Screen implements DefaultLifecycleObserver {
                         new ActionStrip.Builder()
                         .addAction(
                                 new Action.Builder()
-                                .setTitle("CATEGORY")
+                                .setTitle(articles.getSource().getCategory())
                                 .build())
                         .build())
                 .setTitle("News Article")
