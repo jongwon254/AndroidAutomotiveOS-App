@@ -183,7 +183,7 @@ public final class StartScreen extends Screen implements DefaultLifecycleObserve
 
                     // second article clicked
                     case 2:
-                        source2 = new Source(sources.get(1), category);
+                        source2 = new Source(sources.get(1), category.substring(0, 1).toUpperCase() + category.substring(1));
                         articles2 = new Articles(source2, authors.get(1), titles.get(1), descriptions.get(1), urls.get(1), urlToImages.get(1), publishedAts.get(1), contents.get(1));
 
                         // check for null title and source
@@ -210,7 +210,7 @@ public final class StartScreen extends Screen implements DefaultLifecycleObserve
 
                     // third article clicked
                     case 3:
-                        source3 = new Source(sources.get(2), category);
+                        source3 = new Source(sources.get(2), category.substring(0, 1).toUpperCase() + category.substring(1));
                         articles3 = new Articles(source3, authors.get(2), titles.get(2), descriptions.get(2), urls.get(2), urlToImages.get(2), publishedAts.get(2), contents.get(2));
 
                         // check for null title and source
@@ -237,7 +237,7 @@ public final class StartScreen extends Screen implements DefaultLifecycleObserve
 
                     // fourth article clicked
                     case 4:
-                        source4 = new Source(sources.get(3), category);
+                        source4 = new Source(sources.get(3), category.substring(0, 1).toUpperCase() + category.substring(1));
                         articles4 = new Articles(source4, authors.get(3), titles.get(3), descriptions.get(3), urls.get(3), urlToImages.get(3), publishedAts.get(3), contents.get(3));
 
                         // check for null title and source
@@ -264,7 +264,7 @@ public final class StartScreen extends Screen implements DefaultLifecycleObserve
 
                     // fifth article clicked
                     case 5:
-                        source5 = new Source(sources.get(4), category);
+                        source5 = new Source(sources.get(4), category.substring(0, 1).toUpperCase() + category.substring(1));
                         articles5 = new Articles(source5, authors.get(4), titles.get(4), descriptions.get(4), urls.get(4), urlToImages.get(4), publishedAts.get(4), contents.get(4));
 
                         // check for null title and source
@@ -291,7 +291,7 @@ public final class StartScreen extends Screen implements DefaultLifecycleObserve
 
                     // sixth article clicked
                     case 6:
-                        source6 = new Source(sources.get(5), category);
+                        source6 = new Source(sources.get(5), category.substring(0, 1).toUpperCase() + category.substring(1));
                         articles6 = new Articles(source6, authors.get(5), titles.get(5), descriptions.get(5), urls.get(5), urlToImages.get(5), publishedAts.get(5), contents.get(5));
 
                         // check for null title and source
@@ -318,7 +318,7 @@ public final class StartScreen extends Screen implements DefaultLifecycleObserve
 
                     // seventh article clicked
                     case 7:
-                        source7 = new Source(sources.get(6), category);
+                        source7 = new Source(sources.get(6), category.substring(0, 1).toUpperCase() + category.substring(1));
                         articles7 = new Articles(source7, authors.get(6), titles.get(6), descriptions.get(6), urls.get(6), urlToImages.get(6), publishedAts.get(6), contents.get(6));
 
                         // check for null title and source
@@ -345,7 +345,7 @@ public final class StartScreen extends Screen implements DefaultLifecycleObserve
 
                     // eigth article clicked
                     case 8:
-                        source8 = new Source(sources.get(7), category);
+                        source8 = new Source(sources.get(7), category.substring(0, 1).toUpperCase() + category.substring(1));
                         articles8 = new Articles(source8, authors.get(7), titles.get(7), descriptions.get(7), urls.get(7), urlToImages.get(7), publishedAts.get(7), contents.get(7));
 
                         // check for null title and source
