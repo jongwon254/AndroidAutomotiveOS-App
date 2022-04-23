@@ -1,3 +1,5 @@
+![](https://user-images.githubusercontent.com/36485235/164883068-8347ec42-d0ad-42e2-ad2d-ba749877f121.png)
+
 # AndroidAutomotiveOS-App 🚗
 Native Android Automotive OS car app to keep the user up to date with live top headlines and news articles.
 
