@@ -23,4 +23,4 @@ Native Android Automotive OS car app to keep the user up to date with live top h
 <img width="600" alt="aaos6" src="https://user-images.githubusercontent.com/36485235/164882958-4a694f80-0008-4b30-8006-d36bdbd93d5b.png">
 
 ## More Info
-[Visit My Website](https://jongwonlee.dev/ev-app)
+[Visit My Website](https://jongwonlee.dev/news-car-app)
