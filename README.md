@@ -5,7 +5,7 @@ Native Android Automotive OS car app to keep the user up to date with live top h
 
 ## Technologies
 - Language: Java
-- Built with Android Studio and JSON
+- Built with Android Studio and JSON (Gson)
 - Automotive emulator with Polestar 2 system image
 - Based on Android for Cars App Libraries and android.car interfaces, classes, and templates
 - REST API from NewsAPI evaluated with Postman, Gson, and Retrofit
