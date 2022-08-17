@@ -1,14 +1,13 @@
 ![](https://user-images.githubusercontent.com/36485235/164883068-8347ec42-d0ad-42e2-ad2d-ba749877f121.png)
 
-# News Car App 🚗
+# News Car App
 Native Android Automotive OS car app to keep the user up to date with live top headlines and news articles.
 
 ## Technologies
 - Language: Java
-- Built with Android Studio and JSON (Gson)
+- Built with Android for Cars App Libraries and android.car interfaces, classes, and templates
 - Automotive emulator with the Polestar 2 system image
-- Based on Android for Cars App Libraries and android.car interfaces, classes, and templates
-- REST API from NewsAPI evaluated with Postman, Gson, and Retrofit
+- REST API from NewsAPI
 - Meets driver distraction standards and takes care of various screen factors and OEM specific elements
 
 ## Functionality
@@ -23,4 +22,4 @@ Native Android Automotive OS car app to keep the user up to date with live top h
 <img width="600" alt="aaos6" src="https://user-images.githubusercontent.com/36485235/164882958-4a694f80-0008-4b30-8006-d36bdbd93d5b.png">
 
 ## More Info
-[Visit My Website](https://jongwonlee.dev/news-car-app)
+[Visit Website](https://jongwonlee.dev/news-car-app)
